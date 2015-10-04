@@ -1,0 +1,21 @@
+// BEM Helper mixins.
+// Supports multiple arguments.
+// for Sass v3.3 ~
+
+// Elements
+@mixin e($names...) {
+  @each $name in $names {
+    &__#{$name} {
+      @content;
+    }
+  }
+}
+
+// Modifiers
+@mixin m($names...) {
+  @each $name in $names {
+    &--#{$name} {
+      @content;
+    }
+  }
+}

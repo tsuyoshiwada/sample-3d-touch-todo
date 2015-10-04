@@ -1,0 +1,284 @@
+//== Imports
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);
+@import "mixins";
+@import "easings";
+@import "normalize";
+@import "icons";
+
+
+//== Variables
+$color-primary:#37474f;
+$color-accent:#ffeb3b;
+$color-divider:lighten($color-primary, 70%);
+$color-text:#263238;
+
+$font-size:14px;
+$font-sans-serif:"Roboto","游ゴシック",YuGothic,'ヒラギノ角ゴ Pro W3','ヒラギノ角ゴ Pro','Hiragino Kaku Gothic Pro','Hiragino Kaku Gothic ProN',Arial,Helvetica,メイリオ,Meiryo,sans-serif;
+
+$header-height:60px;
+$footer-height:30px;
+
+
+//== Base styles
+::selection {
+  background-color:lighten($color-accent, 10%);
+  text-shadow:1px 1px 1px rgba(255, 255, 255, .8);
+}
+
+::-moz-selection {
+  background-color:lighten($color-accent, 10%);
+  text-shadow:1px 1px 1px rgba(255, 255, 255, .8);
+}
+
+* {
+  box-sizing:border-box;
+}
+
+body,
+html {
+  width:100%;
+  height:100%;
+}
+
+html {
+  color:$color-text;
+  font-family:$font-sans-serif;
+  font-size:$font-size;
+}
+
+body {
+  min-width:320px;
+}
+
+a {
+  color:$color-accent;
+}
+
+
+//== Components
+.header {
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:5000;
+  width:100%;
+  min-width:320px;
+  height:$header-height;
+  background:$color-primary;
+  box-shadow:0 0 5px rgba(0, 0, 0, .6);
+  color:#fff;
+  vertical-align:middle;
+  line-height:$header-height;
+  @include e(logo) {
+    float:left;
+    margin:0;
+    padding:0 20px;
+    font-size:1.2rem;
+    letter-spacing:.05em;
+  }
+  @include e(btn) {
+    float:right;
+    width:$header-height;
+    height:$header-height;
+    background:$color-accent;
+    border:none;
+    color:$color-primary;
+    font-size:1.4rem;
+    transition:all .2s $ease-out-quart;
+    text-align:center;
+    &:focus {
+      outline:none;
+    }
+    &:disabled {
+      background:darken($color-accent, 30%);
+    }
+    & + & {
+      margin-right:1px;
+    }
+  }
+}
+
+
+.footer {
+  position:fixed;
+  bottom:0;
+  left:0;
+  z-index:5000;
+  width:100%;
+  height:$footer-height;
+  background:$color-primary;
+  box-shadow:0 0 5px rgba(0, 0, 0, .6);
+  color:lighten($color-primary, 20%);
+  font-size:.8rem;
+  letter-spacing:.05em;
+  text-align:center;
+  line-height:$footer-height;
+  .copyright {
+    margin:0;
+    line-height:$footer-height;
+  }
+}
+
+
+.contents {
+  padding-top:$header-height;
+}
+
+
+.todo-list {
+  margin:0;
+  padding:0 0 $footer-height 0;
+  list-style:none;
+}
+
+
+.todo {
+  position:relative;
+  padding:20px 20px 20px 40px;
+  border-bottom:1px solid $color-divider;
+  vertical-align:middle;
+  -webkit-tap-highlight-color:transparent;
+  -webkit-user-select:none;
+          user-select:none;
+
+  &:nth-child(odd) {
+    background:#fff;
+  }
+
+  &:nth-child(even) {
+    background:darken(#fff, 3%);
+  }
+
+  &:before {
+    content:"";
+    position:absolute;
+    top:50%;
+    left:20px;
+    display:block;
+    width:0;
+    height:9px;
+    transition:all .2s $ease-out-quart;
+    border-right:2px solid $color-text;
+    border-bottom:2px solid $color-text;
+    transform:translateY(-50%) rotate(90deg);
+  }
+
+  @include e(label) {
+    cursor:pointer;
+    word-break:break-all;
+    @include m(done) {
+      @extend .todo__label;
+      text-decoration:line-through;
+    }
+    @include m(editing) {
+      @extend .todo__label;
+      visibility:hidden;
+    }
+  }
+
+  @include e(input) {
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:1;
+    display:none;
+    width:100%;
+    height:100%;
+    padding:20px 20px 20px 40px;
+    border:none;
+    background:transparent;
+    &:focus {
+      outline:none;
+    }
+    @include m(editing) {
+      @extend .todo__input;
+      display:block;
+    }
+  }
+
+  @include m(done) {
+    @extend .todo;
+    color:lighten($color-text, 60%);
+    &:before {
+      width:3px;
+      height:9px;
+      border-color:lighten($color-text, 60%);
+      transform:translateY(-50%) rotate(45deg);
+    }
+  }
+
+  @include m(editing) {
+    @extend .todo;
+  }
+}
+
+
+.todo-control {
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:9999;
+  width:100%;
+  height:100%;
+  visibility:hidden;
+
+  @include e(overlay) {
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:0;
+    width:100%;
+    height:100%;
+    background:rgba(0, 0, 0, .6);
+    opacity:0;
+    transition:all .3s $ease-out-quart;
+  }
+
+  @include e(menu) {
+    position:absolute;
+    left:0;
+    bottom:0;
+    width:100%;
+    padding:20px;
+    opacity:0;
+    transform:translateY(10%) scale(.9, .9);
+    transition:all .3s $ease-out-quart;
+    @include e(item) {
+      display:block;
+      width:100%;
+      padding:1em;
+      background:#fff;
+      border:none;
+      color:#0093e4;
+      font-size:1rem;
+      -webkit-user-select:none;
+              user-select:none;
+      &:first-child {
+        border-radius:3px 3px 0 0;
+      }
+      &:last-child {
+        border-radius:0 0 3px 3px;
+      }
+      & + & {
+        border-top:1px solid $color-divider;
+      }
+      &:focus {
+        outline:none;
+      }
+    }
+  }
+
+  @include m(show) {
+    @extend .todo-control;
+    visibility:visible;
+
+    .todo-control__overlay {
+      opacity:1;
+    }
+
+    .todo-control__menu {
+      opacity:1;
+      transform:translateY(0) scale(1, 1);
+    }
+  }
+}

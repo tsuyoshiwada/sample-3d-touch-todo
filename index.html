@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <title>DEMO | iOS9のForceTouch(3DTouch)をJavaScriptで操作する | WebDesign Dackel</title>
+  <link rel="stylesheet" href="./dist/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1 class="header__logo">TODO APP</h1>
+      <button class="header__btn" id="add-todo" type="button"><i class="icon-write"></i></button>
+      <button class="header__btn" id="delete-done-todo" type="button" disabled><i class="icon-cross"></i></button>
+    </header>
+  </div>
+  <div class="contents">
+    <ul class="todo-list" id="todo-list"></ul>
+  </div>
+  <div class="todo-control" id="todo-control">
+    <div class="todo-control__overlay" id="todo-control-overlay"></div>
+    <div class="todo-control__menu">
+      <button class="todo-control__menu__item" id="todo-control-edit" type="button">編集</button>
+      <button class="todo-control__menu__item" id="todo-control-done" type="button">チェック</button>
+      <button class="todo-control__menu__item" id="todo-control-delete" type="button">削除</button>
+    </div>
+  </div>
+  <footer class="footer">
+    <p class="copyright">Copyright &copy; <a href="https://github.com/tsuyoshiwada">tsuyoshiwada</a> All Right Reserved.</p>
+  </footer>
+  <script src="./dist/js/app.js"></script>
+</body>
+</html>

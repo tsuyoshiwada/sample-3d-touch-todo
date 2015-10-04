@@ -1,0 +1,25 @@
+{
+  "name": "sample-3d-touch-todo",
+  "version": "0.0.0",
+  "description": "",
+  "scripts": {
+    "watch": "npm run watch:babel | npm run watch:sass",
+    "watch:babel": "watchify src/js/app.js -t babelify -o dist/js/app.js -d",
+    "watch:sass": "node-sass src/sass -o dist/css --output-style expanded -w",
+    "build": "npm run build:babel | npm run build:sass",
+    "build:babel": "browserify src/js/app.js -t babelify -o dist/js/app.js",
+    "build:sass": "node-sass src/sass -o dist/css --output-style compressed"
+  },
+  "author": "tsuyoshiwada",
+  "license": "MIT",
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "babelify": "^6.3.0",
+    "browserify": "^11.2.0",
+    "node-sass": "^3.3.3",
+    "watchify": "^3.4.0"
+  },
+  "dependencies": {
+    "template-obj": "0.0.2"
+  }
+}
